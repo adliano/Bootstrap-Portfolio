@@ -22,7 +22,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -30,39 +31,79 @@
 </head>
 
 <body>
+  <!-- ********************* HEADER ************************* -->
+  <!-- navbar used to make the header background white -->
+  <!-- pt means paddin top and pb padding botton -->
+  <nav class="navbar navbar-expand navbar-light bg-light pt-0 pb-0">
+    <!-- container to use the requirement width -->
+    <div class="container content-width">
+      <h1 class="background-color-primary text-light mb-0 p-3 pl-5 pr-5">Adriano Alves</h1>
+      <!-- ul used to handle the links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">about</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="portfolio.html">Portfolio</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- **** END OF HEADER **** -->
 
-  <!-- ********** Header *********** -->
-  <header>
-    <!-- Navbar with white background -->
-    <div class="navbar navbar-light bg-light mt-0 mb-0 pt-0 pb-0">
-      <!-- container to center the contents on header and width:960px (required) -->
-      <div class="Container d-flex justify-content-between content-width">
-        <div class=" navbar-brand mt-0 mb-0 pt-0 pb-0">
-            <!-- <h1 class=" h-100 text-light background-color-primary">Adriano Alves</h1> -->
-            <h1 class=" h-100 my-bg-primary mb-0 text-light">Adriano Alves</h1>
+  <!-- *************************** MAIN CONTENT *********************** -->
+  <div class="container content-width bg-light mt-3">
+    <!-- **** Jumbotron **** -->
+    <div class="jumbotron bg-light">
+      <h1 class="display-4">About Me</h1>
+      <hr class="my-4">
+      <!-- **** CARD ****  TODO: finish this card -->
+      <div class="card-md-3 ml-0 ">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img class="h-100 w-75" src="./assets/images/me.jpg" alt="">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body"> 
+              <h5 class="card-title">May the source be with you.</h5>
+              <p class="card-text">
+                My name is Adriano I’m 39 years old and a computer science student and 
+                Mathematics Lover, I’m excited to start my career in web development, 
+                'Looking forward to starting using all the knowledge I gained during 
+                these years at this highway to shell.
+                </p>
+               
+
+            </div>
+
+          </div>
+
         </div>
-        
 
-        <!-- another container -->
-        <div class="container ml-auto">
-          <h1>test</h1>
-
-        </div>
-
-      </div>
+      </div><!-- **** END OF Main Content **** -->
 
     </div>
 
-  </header>
-  <!-- Container used for Header, width will be 960px and centered -->
-  
+  </div>
 
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+
+</body>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
