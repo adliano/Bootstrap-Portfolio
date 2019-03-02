@@ -1,0 +1,60 @@
+/********* Body *********/
+body{
+    /* font required */
+    font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+    /* color required */
+    color: #777777;
+    /* boder-color required */
+    border-color: #dddddd;
+    /* eliminate marging arround top */
+    margin: 0;
+    /* background required */
+    background-image: url("../images/vintage-concrete.png");
+}
+
+
+/******** nameLogoBox ********/
+/* used to make the logo right justify and add background color */
+.nameLogoBox{
+    background-color: #4aaaa5;
+    height: 70px;
+    width: 270px;
+    /* left: 0; */
+}
+
+/* 
+h1 margin-bottom 0
+navbar-brand padding top 0 and padding botton 0
+ */
+
+.my-bg-primary{
+    background-color: #4aaaa5;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.bg-yellow{
+    background-color: yellow;
+}
+
+.background-color-primary{
+    background-color: #4aaaa5;
+}
+
+.content-width{
+    width: 960px;
+}
+
+.header-height{
+    height: 70px;
+}
+.margin-zero{
+    margin: 0;
+}
+
+.padding-zero{
+    padding-top: 0;
+    padding-bottom: 0;
+}
