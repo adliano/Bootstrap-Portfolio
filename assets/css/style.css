@@ -1,3 +1,9 @@
+
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
 /********* Body *********/
 body{
     /* font required */
@@ -27,21 +33,10 @@ h1 margin-bottom 0
 navbar-brand padding top 0 and padding botton 0
  */
 
-.my-bg-primary{
+.bg-required{
     background-color: #4aaaa5;
 }
 
-.bg-green{
-    background-color: green;
-}
-
-.bg-yellow{
-    background-color: yellow;
-}
-
-.background-color-primary{
-    background-color: #4aaaa5;
-}
 
 .content-width{
     width: 960px;
