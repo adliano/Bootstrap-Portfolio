@@ -1,6 +1,19 @@
+/* 
+   Adriano Alves
+   Mar 03 2019
+   css file used to change some styles
 
+---------------------------------------------------------------------------------
+Organized:
+First the Element Selectors, Second the Class Selectors  (Alphabetic orther)
+---------------------------------------------------------------------------------
+*/
 
-/********* Body *********/
+/***********************************************************/
+/* * * * * * * * * Element Selectors * * * * * * * * * * * */
+/***********************************************************/
+
+/* Body */
 body{
     /* font required */
     font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
@@ -13,35 +26,39 @@ body{
     /* background required */
     background-image: url("../images/vintage-concrete.png");
 }
-
+/* Image */
+img {
+    width: 200px;
+    height: 200px;
+}
+/* Paragraph */
 p{
     line-height: 1.25;
 }
 
-/* .footer{
-    position: fixed;
-    bottom: 0;
-} */
-/******** nameLogoBox ********/
+/***********************************************************/
+/* * * * * * * * * * * Class Selectors * * * * * * * * * * */
+/***********************************************************/
+
+/*  Absolute Position */
+/* used to set position to absolute */
+.absolute{
+    position: absolute;
+    bottom: 5%;
+}
+/* Required background */
+.bg-required{
+    background-color: #4aaaa5;
+}
+/* Required width */
+.content-width{
+    width: 960px;
+}
+/* nameLogoBox */
 /* used to make the logo right justify and add background color */
 .nameLogoBox{
     background-color: #4aaaa5;
     height: 70px;
     width: 270px;
     /* left: 0; */
-}
-
-.bg-required{
-    background-color: #4aaaa5;
-}
-
-.content-width{
-    width: 960px;
-}
-
-/******** Absolute Position ********/
-/* used to set position to absolute */
-.absolute{
-    position: absolute;
-    bottom: 5%;
 }
