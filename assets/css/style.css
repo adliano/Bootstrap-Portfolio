@@ -38,3 +38,10 @@ p{
 .content-width{
     width: 960px;
 }
+
+/******** Absolute Position ********/
+/* used to set position to absolute */
+.absolute{
+    position: absolute;
+    bottom: 5%;
+}
