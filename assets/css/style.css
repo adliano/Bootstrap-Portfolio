@@ -1,8 +1,4 @@
 
-/* * {
-    margin: 0;
-    padding: 0;
-} */
 
 /********* Body *********/
 body{
@@ -18,7 +14,14 @@ body{
     background-image: url("../images/vintage-concrete.png");
 }
 
+p{
+    line-height: 1.25;
+}
 
+.footer{
+    position: fixed;
+    bottom: 0;
+}
 /******** nameLogoBox ********/
 /* used to make the logo right justify and add background color */
 .nameLogoBox{
@@ -28,28 +31,10 @@ body{
     /* left: 0; */
 }
 
-/* 
-h1 margin-bottom 0
-navbar-brand padding top 0 and padding botton 0
- */
-
 .bg-required{
     background-color: #4aaaa5;
 }
 
-
 .content-width{
     width: 960px;
-}
-
-.header-height{
-    height: 70px;
-}
-.margin-zero{
-    margin: 0;
-}
-
-.padding-zero{
-    padding-top: 0;
-    padding-bottom: 0;
 }
