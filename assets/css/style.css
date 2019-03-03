@@ -18,10 +18,10 @@ p{
     line-height: 1.25;
 }
 
-.footer{
+/* .footer{
     position: fixed;
     bottom: 0;
-}
+} */
 /******** nameLogoBox ********/
 /* used to make the logo right justify and add background color */
 .nameLogoBox{
