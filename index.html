@@ -24,11 +24,8 @@ mobile device versus your computer to see this in action! -->
   Your Bootstrap solution should minimize use of media queries.
   Deploy your new Bootstrap-powered portfolio to GitHub Pages.
 -->
-
-
-
 <html lang="en" class="h-100">
-
+<!-- ************************** HEAD ************************** -->
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -41,34 +38,45 @@ mobile device versus your computer to see this in action! -->
 
   <!-- favicob -->
   <link rel="icon" href="./assets/images/favicon-a.ico">
-
-
   <title>Adriano Alves</title>
-</head>
+</head> <!-- END OF HEAD -->
 
+<!-- ************************* BODY ******************************* -->
 <body class="h-100">
   <!-- ****** HEADER ******* -->
   <!-- navbar used to make the header background white -->
   <!-- pt means paddin top and pb padding botton -->
-  <nav class="navbar navbar-expand navbar-light bg-light pt-0 pb-0">
+  <nav class="navbar navbar-expand-md navbar-light bg-light pt-0 pb-0">
     <!-- container to use the requirement width -->
-    <div class="container content-width">
-      <h1 class="bg-required text-light mb-0 px-5 ">Adriano Alves</h1>
-      <!-- ul used to handle the links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">about</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.html">contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="portfolio.html">Portfolio</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- END OF HEADER -->
+    <div class="container content-width bg-light">
+      <!-- My Name on Header -->
+      <h1 class="bg-required text-light mb-0 ml-0 px-5">Adriano Alves</h1>
+      <!-- Button used to show toggler button -->
+      <button button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#anchorTagsExpand"
+        aria-controls="anchorTagsExpand" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Whatever need to colapse most be placed here -->
+      <div class="collapse navbar-collapse" id="anchorTagsExpand">
+
+        <!-- ul used to handle the links -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">about</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portfolio.html">Portfolio</a>
+          </li>
+        </ul>
+
+      </div><!-- END OF COLLAPSE -->
+
+    </div><!-- EDN OF CONTAINER -->
+
+  </nav><!-- END OF HEADER -->
 
   <!-- ****** MAIN CONTENT ****** -->
   <!-- 
@@ -96,23 +104,23 @@ mobile device versus your computer to see this in action! -->
         <!-- <img class="float-left mr-2" src="http://placehold.it/150x150" alt="Place Holder"> -->
         <p>May the source be with you.</p>
         <p>
-            My name is Adriano I’m 39 years old and a computer science student and Mathematics Lover,
-            I’m excited to start my career in web development, Looking forward to starting using all t
-            he knowledge I gained during these years at this highway to shell.
+          My name is Adriano I’m 39 years old and a computer science student and Mathematics Lover,
+          I’m excited to start my career in web development, Looking forward to starting using all t
+          he knowledge I gained during these years at this highway to shell.
         </p>
         <p>
-            I'm certified Android Developer from City College of San Francisco with strong knowledge in Java SE,
-            Jave EE, MySQL Database Administration, Oracle 12C database Administration, Linux System Administration,
-            Linux Network Administration,Programming Techniques for XML, Dart, Swift and some C++. Current Learning 
-            Web development FullStack at Berkeley Bootcamp.
+          I'm certified Android Developer from City College of San Francisco with strong knowledge in Java SE,
+          Jave EE, MySQL Database Administration, Oracle 12C database Administration, Linux System Administration,
+          Linux Network Administration,Programming Techniques for XML, Dart, Swift and some C++. Current Learning
+          Web development FullStack at Berkeley Bootcamp.
         </p>
         <p>
-            I am Unix command line lover and strong believe that everything it's possible until you stop
-            believing that you can do it. I love to learn new things, ride, travel and drink coffee. I also l
-            ove to help debug problems, because thats the way i learn more.
+          I am Unix command line lover and strong believe that everything it's possible until you stop
+          believing that you can do it. I love to learn new things, ride, travel and drink coffee. I also l
+          ove to help debug problems, because thats the way i learn more.
         </p>
-        
-        
+
+
       </div>
 
 
@@ -126,6 +134,17 @@ mobile device versus your computer to see this in action! -->
       <h6>copyright ©</h6>
     </div>
   </footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 
 
 </body>
