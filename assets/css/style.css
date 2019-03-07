@@ -28,8 +28,8 @@ body{
 }
 /* Image */
 img {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    /* height: 200px; */
 }
 /* Paragraph */
 p{
@@ -50,6 +50,33 @@ p{
 .bg-required{
     background-color: #4aaaa5;
 }
+
+/************* boxImage ***********/
+/* used to stack the label on top of the image at portofolio.html */
+.box-image{
+    /* width: 300px; */
+    width: 200px;
+    /* height: 300px; */
+    height: 200px;
+    background: #fff;
+    padding: 0;
+    position: relative;
+    margin: 0 5em 0 0;
+}
+
+/*********** boxLAbel **************/
+/* used at portofolio.htm to stack the label on a picture */
+.box-label{
+    background-color: #4aaaa5;
+    color: #fff;
+    /* width: 300px; */
+    width: 200px;
+    text-align: center;
+    bottom: 10%;
+    padding: 0.5em 0;
+}
+
+
 /* Required width */
 .content-width{
     width: 960px;
@@ -64,10 +91,13 @@ p{
 }
 
 
+/*  NOTES:  
 
-/* if 980px > view width */
-/* @media only screen and (max-width: 980px){ */
-    /* div.content-width{ */
-        /* width: auto; */
-    /* } */
-/* } */
+if 980px > view width
+@media only screen and (max-width: 980px){
+    div.content-width{
+        width: auto;
+    }
+}
+
+*/
