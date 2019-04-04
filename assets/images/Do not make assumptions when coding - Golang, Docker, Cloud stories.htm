@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://coder.today/tech/2018-10-21_do-not-make-assumptions-when-coding/ -->
+<html lang="en-us" class="gr__coder_today"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Do not make assumptions when coding - Golang, Docker, Cloud stories</title>
+<meta property="og:title" content="Do not make assumptions when coding">
+<meta name="description" content="I gathered a few famous examples of code snippets, that were based on “normal assumptions” (some would say) and caused big problems (vulnerabilities or system crashes).">
+<meta property="og:description" content="I gathered a few famous examples of code snippets, that were based on “normal assumptions” (some would say) and caused big problems (vulnerabilities or system crashes).">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<meta name="googlebot" content="index,follow,snippet,archive">
+<meta name="author" content="Adrian B.G., adrian@coder.today">
+<meta name="keywords" content="programming, coding, security, web development, vulnerability">
+<link rel="canonical" href="https://coder.today/tech/2018-10-21_do-not-make-assumptions-when-coding/">
+<meta property="og:url" content="https://coder.today/tech/2018-10-21_do-not-make-assumptions-when-coding/">
+<meta property="og:image" content="https://coder.today/tech/2018-10-21_do-not-make-assumptions-when-coding/images/1_hu639af56181e4b3184f00a2d6d6352814_118101_1200x630_fill_box_center_2.png">
+<meta name="twitter:card" content="https://coder.today/tech/2018-10-21_do-not-make-assumptions-when-coding/images/1_hu639af56181e4b3184f00a2d6d6352814_118101_1200x630_fill_box_center_2.png">
+<link rel="shortcut icon" href="https://coder.today/favicon.ico">
+<link rel="stylesheet" href="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/minimal.min.dbd02cb3f9299f87e1eaedb0317239113c2cd83366ada4dfaa75c3a34eb99556.css"><script async="" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/embed.js" data-timestamp="1552373001556"></script><link rel="preload" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.9974049bf7b0591e5d4f055cb67f3ee3.css"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.880980e048a2432334f13013030456ac.js"><link rel="preload" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.7ca5005d1897180d07d928e89d2628be.js"><link rel="preload" as="script" href="https://disqus.com/next/config.js"><script src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/alfalfa_min.d078e4f2a4721192a99e02601a767617.js" async="" charset="UTF-8"></script></head>
+<body data-gr-c-s-loaded="true">
+<div id="all">
+<div class="container-fluid">
+<div class="row row-offcanvas row-offcanvas-left">
+<div id="sidebar" class="col-xs-6 col-sm-4 col-md-3 col-lg-2 sidebar-offcanvas">
+<div class="sidebar-content">
+<h1 class="sidebar-heading"><a href="https://coder.today/">Coder.Today</a></h1>
+<p class="sidebar-p">Hello! I am Adrian, a Software Engineer. I like to write, mentor, teach and develop services in the ☁️.</p>
+<ul class="sidebar-menu">
+<li class=""><a href="https://coder.today/bga/">About me</a></li>
+<li class=""><a href="https://coder.today/tech/">Software</a></li>
+<li class="sublink"><a href="https://coder.today/categories/go/">Go</a></li>
+<li class="sublink"><a href="https://coder.today/categories/docker/">Docker</a></li>
+<li class="sublink"><a href="https://coder.today/categories/cloud/">Cloud</a></li>
+<li class="sublink"><a href="https://coder.today/categories/meta/">Meta</a></li>
+<li class="sublink"><a href="https://coder.today/categories/web-dev/">Web Dev</a></li>
+<li class="sublink"><a href="https://coder.today/categories/javascript/">JavaScript</a></li>
+<li class=""><a href="https://coder.today/personal/">Personal blog</a></li>
+</ul>
+<p class="social">
+<a aria-label="contact email" href="mailto:adrian@coder.today" data-animate-hover="pulse" class="email">
+<i class="fas fa-envelope"></i>
+</a>
+<a aria-label="contact twitter" href="https://twitter.com/B3aT" data-animate-hover="pulse" class="external twitter">
+<i class="fab fa-twitter"></i>
+</a>
+<a aria-label="contact Linkedin" href="https://www.linkedin.com/in/bgadrian/" data-animate-hover="pulse" class="external">
+<i class="fab fa-linkedin"></i>
+</a>
+<a aria-label="contact GitHub" href="https://github.com/bgadrian" data-animate-hover="pulse" class="external">
+<i class="fab fa-github"></i>
+</a>
+<a aria-label="contact GitLab" href="https://gitlab.com/bgadrian/" data-animate-hover="pulse" class="external">
+<i class="fab fa-gitlab"></i>
+</a>
+<a aria-label="contact Dev.to" href="https://dev.to/bgadrian" data-animate-hover="pulse" class="external">
+<i class="fab fa-dev"></i>
+</a>
+<a aria-label="contact Docker Hub" href="https://hub.docker.com/u/bgadrian/" data-animate-hover="pulse" class="external">
+<i class="fab fa-docker"></i>
+</a>
+<a aria-label="contact Meetup.com" href="https://www.meetup.com/members/187567618/" data-animate-hover="pulse" class="external">
+<i class="fab fa-meetup"></i>
+</a>
+</p>
+</div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-9 col-md-9 content-column white-background">
+<div class="small-navbar visible-xs">
+<button type="button" id="menutoggle" class="btn btn-ghost-black  pull-left"> <i class="fa fa-align-left"> </i>Menu</button>
+<h1 class="small-navbar-heading"><a href="https://coder.today/">Coder.Today</a></h1>
+</div>
+<div class="row">
+<div class="container-fluid">
+<main class="content-column-content">
+<h1>Do not make assumptions when coding</h1>
+<div id="meta">
+<p id="wordcount">A 3 minutes story written on <span id="date"> Oct 2018 by Adrian B.G. </span>
+</p>
+<div>
+<ul id="categories" class="list-inline inline">
+<li><a href="https://coder.today/categories/meta" class="label label-info">meta</a>
+</li>
+</ul>
+<ul id="tags" class="list-inline inline">
+<li><a href="https://coder.today/tags/programming" class="label label-success">programming</a>
+</li>
+<li><a href="https://coder.today/tags/coding" class="label label-success">coding</a>
+</li>
+<li><a href="https://coder.today/tags/security" class="label label-success">security</a>
+</li>
+<li><a href="https://coder.today/tags/web-development" class="label label-success">web development</a>
+</li>
+<li><a href="https://coder.today/tags/vulnerability" class="label label-success">vulnerability</a>
+</li>
+</ul>
+</div>
+</div>
+<div>
+<figure>
+<img style="max-width: 100%; height: auto;" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/1.png" width="349" height="352" alt="image" data-src="/tech/2018-10-21_do-not-make-assumptions-when-coding/images/1.png" class="lazy img-responsive">
+<figcaption>debugging can take hours</figcaption>
+</figure>
+<blockquote>
+<p>The devil is in the details. Any assumption you make, can lead to a bug, or worst …</p>
+</blockquote>
+<p>I gathered a few famous examples snippets that were based on “normal assumptions” but caused big issues system wide issues.</p>
+<p>I want to raise awareness for <strong>defensive programming</strong>, and stating that it is not a <em>nice to have</em>, but rather a <strong>requirement for good code</strong>.</p>
+<h3 id="the-difference-between-2-consecutive-timestamps-is-always-positive">The difference between 2 consecutive timestamps is always positive</h3>
+<p>You would say that in a code like</p>
+<pre><code>start = time.Now()  
+//do stuff  
+diff = time.Now() - start
+</code></pre>
+<p>the <code>diff</code> will always be a <strong>positive number</strong>. Besides the fact that the internal clock can be misleading, this case also affected CloudFlare systems in a leap year. The fix is to explicitly check <code>if diff &gt; 0</code> use it.</p>
+<p><a href="https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/">How and why the leap second affected Cloudflare DNS</a></p>
+<blockquote>
+<p>Time, like any other 3rd party input should not be trusted.</p>
+</blockquote>
+<h3 id="an-iterator-will-never-exceed-the-max-value">An iterator will never exceed the max value</h3>
+<p>If you deviate from the “classical” iterator, you can run into issues:</p>
+<pre><code>loop:   
+  //do stuff   
+  if ++i == buffer.length  
+     break loop
+</code></pre>
+<p>In this generated C code, the <strong><em>presumption</em></strong> was made that <code>i</code> will not be modified in the loop. If you combine other modules that can affect <code>i</code> , you will end up in the nasty situation where <code>i</code> is bigger then the length, in the <strong>Cloudbleed</strong> case it allowed access to other users memory.</p>
+<blockquote>
+<p>Play it safe, always do <code>i &gt;= max or i &lt;= 0</code> instead of <code>i == max or i == 0</code>.</p>
+</blockquote>
+<p>Another example I have found was to presume the iterator value after the loop:</p>
+<pre><code>i = 0  
+for ; i &lt; n - 1 ; i++  
+   //do stuff  
+   if condition == skip_some_indexs  
+      i++  
+array[i] = "\n";
+</code></pre>
+<p>The code can cause a buffer overflow exception, because <code>i</code> is modified multiple times, in a non-deterministic way.</p>
+<p><a href="https://blog.cloudflare.com/incident-report-on-memory-leak-caused-by-cloudflare-parser-bug/">Incident report on memory leak caused by Cloudflare parser bug</a></p>
+<div class="break"><div id="newsl">
+<p>I curate a list of articles, talks and papers for one/two times per month. They are mostly related to computer science, distributed systems, databases, Go, containers and Cloud solutions.</p>
+<div id="mc_embed_signup">
+<form action="https://today.us7.list-manage.com/subscribe/post?u=3a6e3b0b5874f533555083155&amp;id=ddd98aa866" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+<div id="mc_embed_signup_scroll">
+<input type="email" value="" aria-label="signup to newsletter" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address for newsletter" required="">
+<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_3a6e3b0b5874f533555083155_ddd98aa866" tabindex="-1" value=""></div>
+<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+</div>
+</form>
+</div>
+</div></div>
+<figure>
+<img style="max-width: 100%; height: auto;" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/2.jpg" width="640" height="409" alt="image" data-src="/tech/2018-10-21_do-not-make-assumptions-when-coding/images/2.jpg" class="lazy img-responsive">
+</figure>
+<h3 id="a-response-will-be-sent-only-once">A response will be sent only once</h3>
+<p>This example is more abstract than a simple coding problem, and it was found in WiFi security libraries (krack attack):</p>
+<pre><code>CLIENT = A  
+question -&amp;gt; CLIENT  
+CLIENT -&amp;gt; send us the answer  
+if answer==correct   
+   trust CLIENT //A
+</code></pre>
+<p>The code works well, and it is a proof of concept, the 4-way handshake is more complex of course. But … what if this happens:</p>
+<pre><code>//X finds out about As secret question and:  
+X -&gt; send us the answer  
+if answer == correct   
+   trust CLIENT //X
+</code></pre>
+<p>Some implementations were more defensive and were not affected by this attack, doing something like</p>
+<pre><code>if X == CLIENT =&gt; answer == correct
+</code></pre>
+<p><a href="https://www.krackattacks.com/">KRACK Attacks: Breaking WPA2</a></p>
+<p>Other common issues I encountered while doing the research:</p>
+<ul>
+<li>a complex set of password rules, but forgot to <a href="https://www.owasp.org/index.php/Empty_String_Password">check for an <strong>empty</strong></a> <strong>string</strong></li>
+<li>return private fields by reference from a <code>Get()</code> function</li>
+<li>do not check for <a href="http://projects.webappsec.org/w/page/13246946/Integer%20Overflows">overflow values</a>(MAX_INT)</li>
+</ul>
+<blockquote>
+<p>We have to assume the worst and cover all the cases that at a first glance, can never happen!</p>
+</blockquote>
+<h3 id="resources">Resources</h3>
+<ul>
+<li><a href="https://coder.today/nasa-coding-standards-defensive-programming-and-reliability-a-postmortem-static-analysis-832d0f146b6f">NASA coding standards, defensive programming and reliability — a postmortem static analysis.</a></li>
+<li><a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">Category:OWASP Top Ten Project - OWASP</a></li>
+<li><a href="https://blog.codinghorror.com/top-25-most-dangerous-programming-mistakes/">Top 25 Most Dangerous Programming Mistakes</a></li>
+<li><a href="https://www.sans.org/top25-software-errors">SANS Institute</a></li>
+</ul>
+</div>
+<div id="thanks" class="">
+<div class="row">
+<div class="col-lg-8">
+<h3>Thanks! 🤝</h3>
+<p>Please share the article, subscribe or send me your feedback so I can improve the following posts!</p>
+</div>
+<div id="soci" class="col-lg-4">
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f" target="_blank" aria-label="share on facebook" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text=%22Do%20not%20make%20assumptions%20when%20coding%22%20by%20%40B3aT&amp;url=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f" target="_blank" aria-label="share on twitter" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f&amp;title=Do%20not%20make%20assumptions%20when%20coding&amp;summary=I%20gathered%20a%20few%20famous%20examples%20of%20code%20snippets%2c%20that%20were%20based%20on%20%e2%80%9cnormal%20assumptions%e2%80%9d%20%28some%20would%20say%29%20and%20caused%20big%20problems%20%28vulnerabilities%20or%20system%20crashes%29.&amp;source=Coder.Today" target="_blank" aria-label="share on linkedin" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f" target="_blank" aria-label="share on Reddit" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 11.5c0-1.65-1.35-3-3-3-.96 0-1.86.48-2.42 1.24-1.64-1-3.75-1.64-6.07-1.72.08-1.1.4-3.05 1.52-3.7.72-.4 1.73-.24 3 .5C17.2 6.3 18.46 7.5 20 7.5c1.65 0 3-1.35 3-3s-1.35-3-3-3c-1.38 0-2.54.94-2.88 2.22-1.43-.72-2.64-.8-3.6-.25-1.64.94-1.95 3.47-2 4.55-2.33.08-4.45.7-6.1 1.72C4.86 8.98 3.96 8.5 3 8.5c-1.65 0-3 1.35-3 3 0 1.32.84 2.44 2.05 2.84-.03.22-.05.44-.05.66 0 3.86 4.5 7 10 7s10-3.14 10-7c0-.22-.02-.44-.05-.66 1.2-.4 2.05-1.54 2.05-2.84zM2.3 13.37C1.5 13.07 1 12.35 1 11.5c0-1.1.9-2 2-2 .64 0 1.22.32 1.6.82-1.1.85-1.92 1.9-2.3 3.05zm3.7.13c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9.8 4.8c-1.08.63-2.42.96-3.8.96-1.4 0-2.74-.34-3.8-.95-.24-.13-.32-.44-.2-.68.15-.24.46-.32.7-.18 1.83 1.06 4.76 1.06 6.6 0 .23-.13.53-.05.67.2.14.23.06.54-.18.67zm.2-2.8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5.7-2.13c-.38-1.16-1.2-2.2-2.3-3.05.38-.5.97-.82 1.6-.82 1.1 0 2 .9 2 2 0 .84-.53 1.57-1.3 1.87z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f&amp;t=Do%20not%20make%20assumptions%20when%20coding" target="_blank" aria-label="share on  hacker news" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140"><path fill-rule="evenodd" d="M60.94 82.314L17 0h20.08l25.85 52.093c.397.927.86 1.888 1.39 2.883.53.994.995 2.02 1.393 3.08.265.4.463.764.596 1.095.13.334.262.63.395.898.662 1.325 1.26 2.618 1.79 3.877.53 1.26.993 2.42 1.39 3.48 1.06-2.254 2.22-4.673 3.48-7.258 1.26-2.585 2.552-5.27 3.877-8.052L103.49 0h18.69L77.84 83.308v53.087h-16.9v-54.08z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Do%20not%20make%20assumptions%20when%20coding%20https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f" target="_blank" aria-label="share on  WhatsApp" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.1 3.9C17.9 1.7 15 .5 12 .5 5.8.5.7 5.6.7 11.9c0 2 .5 3.9 1.5 5.6L.6 23.4l6-1.6c1.6.9 3.5 1.3 5.4 1.3 6.3 0 11.4-5.1 11.4-11.4-.1-2.8-1.2-5.7-3.3-7.8zM12 21.4c-1.7 0-3.3-.5-4.8-1.3l-.4-.2-3.5 1 1-3.4L4 17c-1-1.5-1.4-3.2-1.4-5.1 0-5.2 4.2-9.4 9.4-9.4 2.5 0 4.9 1 6.7 2.8 1.8 1.8 2.8 4.2 2.8 6.7-.1 5.2-4.3 9.4-9.5 9.4zm5.1-7.1c-.3-.1-1.7-.9-1.9-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1s-1.2-.5-2.3-1.4c-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6s.3-.3.4-.5c.2-.1.3-.3.4-.5.1-.2 0-.4 0-.5C10 9 9.3 7.6 9 7c-.1-.4-.4-.3-.5-.3h-.6s-.4.1-.7.3c-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.3-.3-.4-.6-.5z"></path></svg>
+</div>
+</div>
+</a>
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Do%20not%20make%20assumptions%20when%20coding&amp;url=https%3a%2f%2fcoder.today%2ftech%2f2018-10-21_do-not-make-assumptions-when-coding%2f" target="_blank" aria-label="share on Telegram" rel="noopener">
+<div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.707 8.475C.275 8.64 0 9.508 0 9.508s.284.867.718 1.03l5.09 1.897 1.986 6.38a1.102 1.102 0 0 0 1.75.527l2.96-2.41a.405.405 0 0 1 .494-.013l5.34 3.87a1.1 1.1 0 0 0 1.046.135 1.1 1.1 0 0 0 .682-.803l3.91-18.795A1.102 1.102 0 0 0 22.5.075L.706 8.475z"></path></svg>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="break"></div>
+<div class="break"></div>
+
+</main>
+</div>
+</div>
+<div id="replies" class="row">
+<div id="disqus_thread"><iframe id="dsq-app7594" name="dsq-app7594" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 686px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "coder-today" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+<div id="related" class="row">
+<h3>Related stories</h3>
+<div class="grid" style="position: relative; height: 409.594px;">
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 masonry-item" style="position: absolute; left: 0px; top: 5px;">
+<div class="box-masonry">
+<a href="https://coder.today/tech/2018-09-16_developers-dont-be-afraid-to-exit-or-panic/" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+<img src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/1_hua6cb31ad73668d886d0f0ebeeebcddc6_213784_350x150_fill_q75_box_center.jpg" data-src="/tech/2018-09-16_developers-dont-be-afraid-to-exit-or-panic/images/1_hua6cb31ad73668d886d0f0ebeeebcddc6_213784_350x150_fill_q75_box_center.jpg" height="150" alt="thumbnail" class="lazy img-responsive">
+</a>
+<div class="box-masonry-text">
+<h4><a href="https://coder.today/tech/2018-09-16_developers-dont-be-afraid-to-exit-or-panic/">Developers, don’t be afraid to exit or panic</a></h4>
+<div class="box-masonry-description">
+<p>
+Do not stale or return the wrong result, rather tell your caller that something is wrong.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 masonry-item" style="position: absolute; left: 258px; top: 5px;">
+<div class="box-masonry">
+<a href="https://coder.today/tech/2017-12-09_how-am-i-trying-to-mentor-software-developers/" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+<img src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/1_huc2647b793f9ca095de24f02fd071567b_31931_350x150_fill_box_center_2.png" data-src="/tech/2017-12-09_how-am-i-trying-to-mentor-software-developers/images/1_huc2647b793f9ca095de24f02fd071567b_31931_350x150_fill_box_center_2.png" height="150" alt="thumbnail" class="lazy img-responsive">
+</a>
+<div class="box-masonry-text">
+<h4><a href="https://coder.today/tech/2017-12-09_how-am-i-trying-to-mentor-software-developers/">How am I trying to mentor software developers</a></h4>
+<div class="box-masonry-description">
+<p>
+What exactly a developer mentor does? Good question, I am struggling myself to find out. I wrote about what exactly am I doing.
+</p>
+</div>
+</div>
+<div class="ribbon"><span>HOT</span></div>
+</div>
+</div>
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 masonry-item" style="position: absolute; left: 517px; top: 5px;">
+<div class="box-masonry">
+<a href="https://coder.today/tech/2017-12-02_what-can-you-learn-from-a-side-project-lz78-emojis-and-google-cloud./" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+<img src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/1_hu5661ffa609e6d5ac5ca4ccccb24d2a3e_650497_350x150_fill_q75_box_center.jpg" data-src="/tech/2017-12-02_what-can-you-learn-from-a-side-project-lz78-emojis-and-google-cloud./images/1_hu5661ffa609e6d5ac5ca4ccccb24d2a3e_650497_350x150_fill_q75_box_center.jpg" height="150" alt="thumbnail" class="lazy img-responsive">
+</a>
+<div class="box-masonry-text">
+<h4><a href="https://coder.today/tech/2017-12-02_what-can-you-learn-from-a-side-project-lz78-emojis-and-google-cloud./">What can you learn from a side project ⁉️ LZ78, emoji and google cloud.</a></h4>
+<div class="box-masonry-description">
+<p>
+I wrote about my latest pet-project: <a class="vglnk" href="http://emoji-compress.com/" rel="nofollow"><span>emoji</span><span>-</span><span>compress</span><span>.</span><span>com</span></a> and what I have learned by doing it.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 masonry-item" style="position: absolute; left: 776px; top: 5px;">
+<div class="box-masonry">
+<a href="https://coder.today/tech/2017-10-18_dealing-with-technical-debt-whiledeliveringa-3-step-technique-with-example/" title="" class="box-masonry-image with-hover-overlay with-hover-icon">
+<img src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/1_hu59caf4f9df5be389e3a7717fe518e092_671987_350x150_fill_q75_box_center.jpg" data-src="/tech/2017-10-18_dealing-with-technical-debt-whiledeliveringa-3-step-technique-with-example/images/1_hu59caf4f9df5be389e3a7717fe518e092_671987_350x150_fill_q75_box_center.jpg" height="150" alt="thumbnail" class="lazy img-responsive">
+</a>
+<div class="box-masonry-text">
+<h4><a href="https://coder.today/tech/2017-10-18_dealing-with-technical-debt-whiledeliveringa-3-step-technique-with-example/">Dealing with technical debt while delivering— a 3 step technique with example</a></h4>
+<div class="box-masonry-description">
+<p>
+Making peace with the Ghosts of Code Past while delivering new features.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="copyright">
+<p class="credit">
+Bledea Georgescu Adrian
+© 2019
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<link rel="stylesheet" href="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/other.min.00944811f65a6e16d37355ea7a5062c43da9aa8e6b9f343f4919bcbbadddd4ce.css">
+<link rel="stylesheet" href="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/customscss.min.38787c5783fa490e2c3b476f016a7e88aabb1891041d850b3403661ef1094506.css">
+<script src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/bundle.min.a4ef68398d2008858314bc61c45e517412a8ad1f1bb80de4d18794d59f64b261.js"></script>
+<link href="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/css" rel="stylesheet">
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-106766121-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async="" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/analytics.js"></script>
+
+
+<iframe style="display: none;" src="./Do not make assumptions when coding - Golang, Docker, Cloud stories_files/saved_resource(1).html"></iframe></body></html>
