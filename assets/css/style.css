@@ -12,7 +12,6 @@ First the Element Selectors, Second the Class Selectors  (Alphabetic orther)
 /***********************************************************/
 /* * * * * * * * * Element Selectors * * * * * * * * * * * */
 /***********************************************************/
-
 /* Body */
 body{
     /* font required */
@@ -26,28 +25,36 @@ body{
     /* background required */
     background-image: url("../images/vintage-concrete.png");
 }
-
+/* Icons */
+i {
+    font-size: 3em;
+    /* color: black; */
+}
+/* Text label for icon */
+i span {
+    display:block;
+    font-size: 0.5em; 
+    color: black;
+    text-align: right;
+}
 /* Paragraph */
 p{
     line-height: 1.25;
 }
-
 /***********************************************************/
 /* * * * * * * * * * * Class Selectors * * * * * * * * * * */
 /***********************************************************/
-
 /*  Absolute Position */
 /* used to set position to absolute */
 .absolute{
     position: absolute;
     bottom: 5%;
 }
-/* Required background */
+/* background */
 .bg-required{
     background-color: #4aaaa5;
 }
-
-/* Required width */
+/* Container width */
 .content-width{
     width: 960px;
 }
@@ -57,36 +64,15 @@ p{
     background-color: #4aaaa5;
     height: 70px;
     width: 270px;
-    /* left: 0; */
 }
-
-
 /* *************************************************************** */
 /* * * * * * * * * * * * * * * MEDIA * * * * * * * * * * * * * * * */
 /* *************************************************************** */
-
 @media (max-width: 768px){
     .w-25 {
         width: 90%!important;
     }
-
     div.content-width{
         width: 90%;
     }
 }
-
-/*  NOTES:  
-
-if 980px > view width
-@media only screen and (max-width: 980px){
-    div.content-width{
-        width: auto;
-    }
-}
-
-img {
-    width: 100px;
-    height: 200px;
-}
-
-*/
